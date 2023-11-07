@@ -1,6 +1,8 @@
 import qianfan
 import re
 import streamlit as st
+
+
 def add_numbers(a: int, b: int):
     """
     This function adds two numbers.
@@ -71,7 +73,7 @@ def eb_call(prompt, round):
     return response
 
 chat_comp = qianfan.ChatCompletion(ak="LrQvpiE6f4npsUwEvPL9vEWF", sk="CHTwBMVM0DlwyoGTLGEyRviBdctgOv4G")
-prompt = "你能计算一下42069420 + 6969420等于多少吗？###嗨你怎么样？###"
+prompt = "Can you add up 42069420 and 6969420？### Hey how are you？###"
 prompt_list = re.split(r"###", prompt)
 
 for questions in prompt_list:

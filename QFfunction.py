@@ -19,7 +19,12 @@ def say_hello(name: str):
     This function greets the user.
     """
     return f"你好, {name}!"
-
+    
+def mutiply_numbers(a: int, b: int):
+    """
+    This function multiplies two numbers.
+    """
+    return a + b
 
 def eb_call(prompt, round):
     print(prompt)
@@ -36,6 +41,27 @@ def eb_call(prompt, round):
                 {
                     "name": "add_numbers",
                     "description": "This function adds two numbers.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "a": {
+                                "type": "integer",
+                                "description": ""
+                            },
+                            "b": {
+                                "type": "integer",
+                                "description": ""
+                            }
+                        },
+                        "required": [
+                            "a",
+                            "b"
+                        ]
+                    }
+                },
+                {
+                    "name": "mutiply_numbers",
+                    "description": "This function multiplies two numbers.",
                     "parameters": {
                         "type": "object",
                         "properties": {
@@ -78,7 +104,7 @@ def eb_call(prompt, round):
     return response
 
 chat_comp = qianfan.ChatCompletion(ak="LrQvpiE6f4npsUwEvPL9vEWF", sk="CHTwBMVM0DlwyoGTLGEyRviBdctgOv4G")
-prompt = "这两个数加起来是多少，42069420 和 6969420？### 我叫ZZ，你好###"
+prompt = "这两个数加起来是多少，42069420 和 6969420？### 我叫ZZ，你好### 请问23乘109是多少 ###"
 prompt_list = re.split(r"###", prompt)
 
 for questions in prompt_list:

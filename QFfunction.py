@@ -152,7 +152,7 @@ employee_list_df={}
 for questions in prompt_list:
     response = eb_call(questions, round)
     st.write(response['result'])
-    response_message = response["choices"][0]["message"]
+    #response_message = response["choices"][0]["message"]
 
     if response.get('function_call'):
         # Which function call was invoked

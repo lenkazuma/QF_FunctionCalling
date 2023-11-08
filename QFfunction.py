@@ -39,7 +39,7 @@ def eb_call(prompt, round):
     print('-' * 20,' Output ', '-'*20,"\n")
 
     response = chat_comp.do(
-            model="ERNIE-Bot-turbo", 
+            model="ERNIE-Bot", 
             messages=[{
                 "role": "user",
                 "content": prompt

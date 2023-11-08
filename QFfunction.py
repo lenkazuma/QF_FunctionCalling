@@ -42,8 +42,7 @@ def eb_call(prompt, round):
             model="ERNIE-Bot", 
             messages=[{
                 "role": "user",
-                "content": prompt,
-                "function_call" :'True'
+                "content": prompt
                 }],
             temperature=0.000000001,
             functions=[

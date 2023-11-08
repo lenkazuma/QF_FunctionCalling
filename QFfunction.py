@@ -154,7 +154,7 @@ for questions in prompt_list:
     st.write(response['result'])
     response_message=response['result']
 
-    if response_message.get('function_call'):
+    if response.get('function_call'):
         # Which function call was invoked
         function_called = response_message['function_call']['name']
         

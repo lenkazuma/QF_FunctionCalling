@@ -128,15 +128,33 @@ def eb_call(prompt, round):
                             
                         }
                     }
-                }
+                },
+                {
+                    "name": "get_current_weather",
+                    "description": "获得指定地点的天气",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                        "location": {
+                            "type": "string",
+                            "description": "省，市名，例如：河北省，石家庄"
+                        },
+                        "unit": {
+                            "type": "string",
+                            "enum": ["摄氏度", "华氏度"]
+                        }
+                        },
+                        "required": ["location"]
+                    }
+            },
                 ],
         examples= [
         {"role":"user","content":"What is the weather like in Boston?"},
         {"role": "assistant", "content": "null", "function_call": {"name": "get_current_weather", "arguments": "{ \"location\": \"Boston\"}"}},
         {"role": "function", "name": "get_current_weather", "content": "{\"temperature\": \"25\", \"unit\": \"centigrade\", \"description\": \"cloud\"}"}
-        ]
-            stream="true"
-            )
+        ],
+        stream="true"
+    )
 
 
     st.write(response)

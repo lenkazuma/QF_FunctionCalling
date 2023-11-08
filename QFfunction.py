@@ -4,14 +4,9 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 np.random.seed(123)
+import json
 
-
-def list_synonyms(synonyms: list[str]):
-    """
-    Show a list of synonyms to the user.
-    """
-    return synonyms
-    
+   
 def add_numbers(a: int, b: int):
     """
     This function adds two numbers.
@@ -135,11 +130,12 @@ def eb_call(prompt, round):
                         }
                     }
                 }
-                 ]
+                 ],
+            function_call = 'auto'
             )
 
 
-    #st.write(response)
+    st.write(response)
     return response
 
 chat_comp = qianfan.ChatCompletion(ak="LrQvpiE6f4npsUwEvPL9vEWF", sk="CHTwBMVM0DlwyoGTLGEyRviBdctgOv4G")
@@ -156,5 +152,31 @@ employee_list_df={}
 for questions in prompt_list:
     response = eb_call(questions, round)
     st.write(response['result'])
+    response_message=response['result']
 
-st.write(employee_list_df)
+    if response_message.get('function_call'):
+        # Which function call was invoked
+        function_called = response_message['function_call']['name']
+        
+        # Extracting the arguments
+        function_args  = json.loads(response_message['function_call']['arguments'])
+        
+        # Function names
+        available_functions = {
+            "say_hello": say_hello,
+            "add_numbers": add_numbers,
+            "mutiply_numbers": mutiply_numbers,
+            "extract_employee_info": extract_employee_info
+        }
+        
+        fuction_to_call = available_functions[function_called]
+        response_message = fuction_to_call(*list(function_args .values()))
+        
+    else:
+        #response_message = response_message['content']
+        print("error")
+    
+    print(f"\nSample#{i+1}\n")
+    print(response_message)
+
+    st.write(employee_list_df)

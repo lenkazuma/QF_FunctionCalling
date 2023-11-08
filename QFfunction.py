@@ -107,25 +107,25 @@ def eb_call(prompt, round):
                 },
                 {
                     'name': 'extract_employee_info',
-                    'description': 'Get the employee information from the body of the input text',
+                    'description': '将员工信息录入',
                     'parameters': {
                         'type': 'object',
                         'properties': {
                             'name': {
                                 'type': 'string',
-                                'description': 'Name of the person'
+                                'description': '姓名'
                             },
                             'department': {
                                 'type': 'string',
-                                'description': 'Department the employee belongs to.'
+                                'description': '部门'
                             },
                             'certificate': {
                                 'type': 'string',
-                                'description': 'The qualification or certificate that the employee holds.'
+                                'description': '学历文聘'
                             },
                             'id': {
                                 'type': 'string',
-                                'description': 'The id number of the employee. '
+                                'description': '工号 '
                             }
                             
                         }
@@ -195,5 +195,13 @@ for questions in prompt_list:
     response = eb_call(questions, round)
     st.write(response['result'])
 
+    import json
+
+    assert hasattr(response, 'function_call')
+    function_call = response.function_call
+    name2function = {'get_current_temperature': get_current_temperature}
+    func = name2function[function_call['name']]
+    args = json.loads(function_call['arguments'])
+    res = func(location=args['location'], unit=args['unit'])
 
 st.write(employee_list_df)

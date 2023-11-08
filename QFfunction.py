@@ -149,7 +149,7 @@ prompt2 = "我叫Wenxin，你好"
 prompt3 = "请问23乘109是多少"
 prompt4 = "新入职员工李红在HR部门工作，她有研究生文凭。她的工号是918604"
 prompt5 = "张三的工号是114514，他本科毕业，在技术部工作。请添加一下他的信息。"
-prompt_list = [prompt1，prompt2，prompt3，prompt4，prompt5]
+prompt_list = [prompt1,prompt2,prompt3,prompt4,prompt5]
 
 employee_list_df={}
 

@@ -41,9 +41,7 @@ def eb_call(prompt, round):
     response = chat_comp.do(
             model="ERNIE-Bot", 
             messages=[
-                {"role": "user", "content": prompt}#,
-                #{"role": "assistant","content": "null", "function_call": {"name": "add_numbers", "arguments": "{ \"a\": \"114514\"}"}},
-                #{"role": "function", "name": "add_numbers", "content": "测试"}
+                {"role": "user", "content": prompt}
                 ],
             temperature=0.000000001,
             functions=[
@@ -132,6 +130,11 @@ def eb_call(prompt, round):
                     }
                 }
                 ],
+        examples= [
+        {"role":"user","content":"What is the weather like in Boston?"},
+        {"role": "assistant", "content": "null", "function_call": {"name": "get_current_weather", "arguments": "{ \"location\": \"Boston\"}"}},
+        {"role": "function", "name": "get_current_weather", "content": "{\"temperature\": \"25\", \"unit\": \"centigrade\", \"description\": \"cloud\"}"}
+        ]
             stream="true"
             )
 

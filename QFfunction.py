@@ -40,10 +40,10 @@ def eb_call(prompt, round):
 
     response = chat_comp.do(
             model="ERNIE-Bot", 
-            messages=[{
-                "role": "user",
-                "content": prompt
-                }],
+            messages=[
+                {"role": "user", "content": prompt}
+                #{"role": "function", "name": "add_numbers", "content": "{"}
+                ],
             temperature=0.000000001,
             functions=[
                 {

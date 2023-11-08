@@ -197,11 +197,11 @@ for questions in prompt_list:
 
     import json
 
-    assert hasattr(response, 'function_call')
-    function_call = response.function_call
-    name2function = {'get_current_temperature': get_current_temperature}
-    func = name2function[function_call['name']]
-    args = json.loads(function_call['arguments'])
-    res = func(location=args['location'], unit=args['unit'])
+    if hasattr(response, 'function_call'):
+        function_call = response.function_call
+        name2function = {'get_current_temperature': get_current_temperature}
+        func = name2function[function_call['name']]
+        args = json.loads(function_call['arguments'])
+        res = func(location=args['location'], unit=args['unit'])
 
-st.write(employee_list_df)
+        st.write(employee_list_df)

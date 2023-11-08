@@ -24,6 +24,7 @@ def mutiply_numbers(a: int, b: int):
     This function multiplies two numbers.
     """
     return a + b
+
 def get_current_temperature(location: str, unit: str) -> dict:
     return {'temperature': 25, 'unit': '摄氏度'}
 

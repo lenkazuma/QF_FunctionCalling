@@ -24,7 +24,8 @@ def mutiply_numbers(a: int, b: int):
     This function multiplies two numbers.
     """
     return a + b
-
+def get_current_temperature(location: str, unit: str) -> dict:
+    return {'temperature': 25, 'unit': '摄氏度'}
 
 def extract_employee_info(employee_list_df,name: str,department: str,certificate:str,id:int):
     """
@@ -130,23 +131,45 @@ def eb_call(prompt, round):
                     }
                 },
                 {
-                    "name": "get_current_weather",
-                    "description": "获得指定地点的天气",
-                    "parameters": {
-                        "type": "object",
-                        "properties": {
-                        "location": {
-                            "type": "string",
-                            "description": "省，市名，例如：河北省，石家庄"
+                    'name': 'get_current_temperature',
+                    'description': "获取指定城市的气温",
+                    'parameters': {
+                        'type': 'object',
+                        'properties': {
+                            'location': {
+                                'type': 'string',
+                                'description': "城市名称",
+                            },
+                            'unit': {
+                                'type': 'string',
+                                'enum': [
+                                    '摄氏度',
+                                    '华氏度',
+                                ],
+                            },
                         },
-                        "unit": {
-                            "type": "string",
-                            "enum": ["摄氏度", "华氏度"]
-                        }
+                        'required': [
+                            'location',
+                            'unit',
+                        ],
+                    },
+                    'responses': {
+                        'type': 'object',
+                        'properties': {
+                            'temperature': {
+                                'type': 'integer',
+                                'description': "城市气温",
+                            },
+                            'unit': {
+                                'type': 'string',
+                                'enum': [
+                                    '摄氏度',
+                                    '华氏度',
+                                ],
+                            },
                         },
-                        "required": ["location"]
-                    }
-            }
+                    },
+                }
             ]
 
     )

@@ -27,7 +27,7 @@ def mutiply_numbers(a: int, b: int):
     return a + b
 
 def eb_call(prompt, round):
-    print(prompt)
+    st.write(prompt)
     print('-' * 20,' Output ', '-'*20,"\n")
 
     response = chat_comp.do(
@@ -104,7 +104,7 @@ def eb_call(prompt, round):
     return response
 
 chat_comp = qianfan.ChatCompletion(ak="LrQvpiE6f4npsUwEvPL9vEWF", sk="CHTwBMVM0DlwyoGTLGEyRviBdctgOv4G")
-prompt = "这两个数加起来是多少，42069420 和 6969420？### 我叫ZZ，你好### 请问23乘109是多少 ###"
+prompt = "这两个数加起来是多少，42069420 和 6969420？### 我叫Wenxin，你好### 请问23乘109是多少 ###"
 prompt_list = re.split(r"###", prompt)
 
 for questions in prompt_list:

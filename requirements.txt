@@ -3,4 +3,3 @@ pypdf
 streamlit
 langchain-wenxin
 qianfan==0.0.3
-json

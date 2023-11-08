@@ -42,6 +42,7 @@ def eb_call(prompt, round):
             model="ERNIE-Bot", 
             messages=[
                 {"role": "user", "content": prompt},
+                {"role": "assistant","content": "null", "function_call": {"name": "add_numbers", "arguments": "{ \"a\": \"114514\"}"}},
                 {"role": "function", "name": "add_numbers", "content": "测试"}
                 ],
             temperature=0.000000001,

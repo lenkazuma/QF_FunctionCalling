@@ -34,22 +34,10 @@ def extract_employee_info(employee_list_df,name: str,department: str,certificate
     employee_list_df.append(new_row, ignore_index=True)
     return employee_list_df
 
-def eb_call(prompt, round,functions):
-    st.write(prompt)
-    print('-' * 20,' Output ', '-'*20,"\n")
 
-    response = chat_comp.create(
-            model="ERNIE-Bot", 
-            messages=[
-                {"role": "user", "content": prompt}
-                ],
-            temperature=0.000000001,
-            functions=functions
-    )
-
-
-    st.write(response)
-    return response
+messages = [
+    {"role": "user", "content": prompt}
+]
 
 functions=[
     {
@@ -178,6 +166,20 @@ functions=[
     }
 ]
 
+def eb_call(prompt,round_no,functions,messages):
+    st.write(prompt)
+    print('-' * 20,' Output ', '-'*20,"\n")
+
+    response = chat_comp.create(
+            model="ERNIE-Bot", 
+            messages=messages,
+            temperature=0.000000001,
+            functions=functions
+    )
+
+    st.write(response)
+    round_no+=1
+    return response
 
 chat_comp = qianfan.ChatCompletion()
 
@@ -192,8 +194,10 @@ prompt_list = [prompt1,prompt2,prompt3,prompt4,prompt5,prompt6]
 
 employee_list_df={}
 
+round_no = 1
+
 for questions in prompt_list:
-    response = eb_call(questions, round,functions)
+    response = eb_call(questions,round_no,functions,messages)
     st.write(response['result'])
 
     import json

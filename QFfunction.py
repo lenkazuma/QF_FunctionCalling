@@ -35,9 +35,7 @@ def extract_employee_info(employee_list_df,name: str,department: str,certificate
     return employee_list_df
 
 
-messages = [
-    {"role": "user", "content": prompt}
-]
+
 
 functions=[
     {
@@ -168,15 +166,14 @@ functions=[
 
 def eb_call(prompt,round_no,functions,messages):
     st.write(prompt)
-    print('-' * 20,' Output ', '-'*20,"\n")
+    st.write('-' * 20,' Output ', '-'*20,"\n")
 
     response = chat_comp.create(
             model="ERNIE-Bot", 
-            messages=messages,
+            messages = [{"role": "user", "content": prompt}],
             temperature=0.000000001,
             functions=functions
     )
-
     st.write(response)
     round_no+=1
     return response

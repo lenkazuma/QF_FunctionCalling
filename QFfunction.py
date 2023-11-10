@@ -164,13 +164,14 @@ functions=[
     }
 ]
 
+
 def eb_call(prompt,round_no,functions,messages):
     st.write(prompt)
     st.write('-' * 20,' Output ', '-'*20,"\n")
 
     response = chat_comp.create(
             model="ERNIE-Bot", 
-            messages = [{"role": "user", "content": prompt}],
+            messages=messages,
             temperature=0.000000001,
             functions=functions
     )
@@ -179,6 +180,8 @@ def eb_call(prompt,round_no,functions,messages):
     return response
 
 chat_comp = qianfan.ChatCompletion()
+
+
 
 prompt1 = "这两个数加起来是多少，42069420 和 6969420？"
 prompt2 = "我叫Wenxin，你好"
@@ -194,6 +197,7 @@ employee_list_df={}
 round_no = 1
 
 for questions in prompt_list:
+    messages = [{"role": "user", "content": questions}]
     response = eb_call(questions,round_no,functions,messages)
     st.write(response['result'])
 
@@ -208,3 +212,26 @@ for questions in prompt_list:
 
         st.write(employee_list_df)
         
+    import json
+    name2function = {'get_current_temperature': get_current_temperature}
+    func = name2function[function_call['name']]
+    args = json.loads(function_call['arguments'])
+    res = func(location=args['location'], unit=args['unit'])
+    
+    messages.append(
+        {
+            'role': 'assistant',
+            'content': None,
+            'function_call': function_call,
+        }
+    )
+    messages.append(
+        {
+            'role': 'function',
+            'name': function_call['name'],
+            'content': json.dumps(res, ensure_ascii=False),
+        }
+    )
+    st.write(messages)
+    response = eb_call(questions,round_no,functions,messages)
+    print(response.result)

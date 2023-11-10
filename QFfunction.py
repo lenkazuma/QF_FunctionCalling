@@ -38,7 +38,7 @@ def eb_call(prompt, round,functions):
     st.write(prompt)
     print('-' * 20,' Output ', '-'*20,"\n")
 
-    response = chat_comp.do(
+    response = chat_comp.create(
             model="ERNIE-Bot", 
             messages=[
                 {"role": "user", "content": prompt}
@@ -179,7 +179,8 @@ functions=[
 ]
 
 
-chat_comp = qianfan.ChatCompletion(ak="LrQvpiE6f4npsUwEvPL9vEWF", sk="CHTwBMVM0DlwyoGTLGEyRviBdctgOv4G")
+chat_comp = qianfan.ChatCompletion()
+
 prompt1 = "这两个数加起来是多少，42069420 和 6969420？"
 prompt2 = "我叫Wenxin，你好"
 prompt3 = "请问23乘109是多少"

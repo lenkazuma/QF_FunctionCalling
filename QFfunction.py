@@ -1,7 +1,5 @@
 import qianfan
-import re
 import streamlit as st
-import pandas as pd
 import numpy as np
 np.random.seed(123)
 import json
@@ -36,7 +34,7 @@ def extract_employee_info(employee_list_df,name: str,department: str,certificate
     employee_list_df.append(new_row, ignore_index=True)
     return employee_list_df
 
-def eb_call(prompt, round):
+def eb_call(prompt, round,functions):
     st.write(prompt)
     print('-' * 20,' Output ', '-'*20,"\n")
 
@@ -46,145 +44,147 @@ def eb_call(prompt, round):
                 {"role": "user", "content": prompt}
                 ],
             temperature=0.000000001,
-            functions=[
-                {
-                    "name": "add_numbers",
-                    "description": "This function adds two numbers.",
-                    "parameters": {
-                        "type": "object",
-                        "properties": {
-                            "a": {
-                                "type": "integer",
-                                "description": ""
-                            },
-                            "b": {
-                                "type": "integer",
-                                "description": ""
-                            }
-                        },
-                        "required": [
-                            "a",
-                            "b"
-                        ]
-                    }
-                },
-                {
-                    "name": "mutiply_numbers",
-                    "description": "This function multiplies two numbers.",
-                    "parameters": {
-                        "type": "object",
-                        "properties": {
-                            "a": {
-                                "type": "integer",
-                                "description": ""
-                            },
-                            "b": {
-                                "type": "integer",
-                                "description": ""
-                            }
-                        },
-                        "required": [
-                            "a",
-                            "b"
-                        ]
-                    }
-                },
-                {
-                    "name": "say_hello",
-                    "description": "This function greets the user.",
-                    "parameters": {
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "type": "string",
-                                "description": ""
-                            }
-                        },
-                        "required": [
-                            "name"
-                        ]
-                    }
-                },
-                {
-                    'name': 'extract_employee_info',
-                    'description': '将员工信息录入',
-                    'parameters': {
-                        'type': 'object',
-                        'properties': {
-                            'name': {
-                                'type': 'string',
-                                'description': '姓名'
-                            },
-                            'department': {
-                                'type': 'string',
-                                'description': '部门'
-                            },
-                            'certificate': {
-                                'type': 'string',
-                                'description': '学历文聘'
-                            },
-                            'id': {
-                                'type': 'string',
-                                'description': '工号 '
-                            }
-                            
-                        }
-                    }
-                },
-                {
-                    'name': 'get_current_temperature',
-                    'description': "获取指定城市的气温",
-                    'parameters': {
-                        'type': 'object',
-                        'properties': {
-                            'location': {
-                                'type': 'string',
-                                'description': "城市名称",
-                            },
-                            'unit': {
-                                'type': 'string',
-                                'enum': [
-                                    '摄氏度',
-                                    '华氏度',
-                                ],
-                            },
-                        },
-                        'required': [
-                            'location',
-                            'unit',
-                        ],
-                    },
-                    'responses': {
-                        'type': 'object',
-                        'properties': {
-                            'temperature': {
-                                'type': 'integer',
-                                'description': "城市气温",
-                            },
-                            'unit': {
-                                'type': 'string',
-                                'enum': [
-                                    '摄氏度',
-                                    '华氏度',
-                                ],
-                            },
-                        },
-                    },
-                }
-            ]
-
+            functions=functions
     )
 
 
     st.write(response)
     return response
 
+functions=[
+    {
+        "name": "add_numbers",
+        "description": "This function adds two numbers.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "a": {
+                    "type": "integer",
+                    "description": ""
+                },
+                "b": {
+                    "type": "integer",
+                    "description": ""
+                }
+            },
+            "required": [
+                "a",
+                "b"
+            ]
+        }
+    },
+    {
+        "name": "mutiply_numbers",
+        "description": "This function multiplies two numbers.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "a": {
+                    "type": "integer",
+                    "description": ""
+                },
+                "b": {
+                    "type": "integer",
+                    "description": ""
+                }
+            },
+            "required": [
+                "a",
+                "b"
+            ]
+        }
+    },
+    {
+        "name": "say_hello",
+        "description": "打招呼并自我介绍。",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": ""
+                }
+            },
+            "required": [
+                "name"
+            ]
+        }
+    },
+    {
+        'name': 'extract_employee_info',
+        'description': '将员工信息录入。',
+        'parameters': {
+            'type': 'object',
+            'properties': {
+                'name': {
+                    'type': 'string',
+                    'description': '姓名'
+                },
+                'department': {
+                    'type': 'string',
+                    'description': '部门'
+                },
+                'certificate': {
+                    'type': 'string',
+                    'description': '学历文聘'
+                },
+                'id': {
+                    'type': 'string',
+                    'description': '工号 '
+                }
+                
+            }
+        }
+    },
+    {
+        'name': 'get_current_temperature',
+        'description': "获取指定城市的气温",
+        'parameters': {
+            'type': 'object',
+            'properties': {
+                'location': {
+                    'type': 'string',
+                    'description': "城市名称",
+                },
+                'unit': {
+                    'type': 'string',
+                    'enum': [
+                        '摄氏度',
+                        '华氏度',
+                    ],
+                },
+            },
+            'required': [
+                'location',
+                'unit',
+            ],
+        },
+        'responses': {
+            'type': 'object',
+            'properties': {
+                'temperature': {
+                    'type': 'integer',
+                    'description': "城市气温",
+                },
+                'unit': {
+                    'type': 'string',
+                    'enum': [
+                        '摄氏度',
+                        '华氏度',
+                    ],
+                },
+            },
+        },
+    }
+]
+
+
 chat_comp = qianfan.ChatCompletion(ak="LrQvpiE6f4npsUwEvPL9vEWF", sk="CHTwBMVM0DlwyoGTLGEyRviBdctgOv4G")
 prompt1 = "这两个数加起来是多少，42069420 和 6969420？"
 prompt2 = "我叫Wenxin，你好"
 prompt3 = "请问23乘109是多少"
-prompt4 = "新入职员工李红在HR部门工作，她有研究生文凭。她的工号是918604"
-prompt5 = "张三的工号是114514，他本科毕业，在技术部工作。请添加一下他的信息。"
+prompt4 = "新入职员工李红在HR部门工作，她有研究生文凭。她的工号是918604。"
+prompt5 = "张三的工号是114514，他本科毕业，在技术部工作。"
 prompt6 = "深圳市今天气温如何？"
 prompt_list = [prompt1,prompt2,prompt3,prompt4,prompt5,prompt6]
 
@@ -192,7 +192,7 @@ prompt_list = [prompt1,prompt2,prompt3,prompt4,prompt5,prompt6]
 employee_list_df={}
 
 for questions in prompt_list:
-    response = eb_call(questions, round)
+    response = eb_call(questions, round,functions)
     st.write(response['result'])
 
     import json

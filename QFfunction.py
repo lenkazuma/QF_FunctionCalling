@@ -169,7 +169,7 @@ def eb_call(prompt,round_no,functions,messages):
     st.write(prompt)
     st.write('-' * 20,' Output ', '-'*20,"\n")
 
-    response = chat_comp.create(
+    response = chat_comp.do(
             model="ERNIE-Bot", 
             messages=messages,
             temperature=0.000000001,

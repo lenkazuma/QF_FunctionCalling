@@ -243,7 +243,7 @@ for questions in prompt_list:
     response = eb_call(questions,round_no,functions,messages)
     st.write(response['result'])
 
-    if response['function_call']:
+    if hasattr(response,'function_call'):
         function_call = response.function_call
         name2function = {'get_current_temperature': get_current_temperature}
         func = name2function[function_call['name']]

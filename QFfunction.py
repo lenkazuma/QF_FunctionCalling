@@ -39,7 +39,7 @@ def extract_employee_info(employee_list_df,name: str,department: str,certificate
 
 functions=[
     {
-        "name": "add_numbers",
+        "name": "process_a_and_b",
         "description": "将两个数字a和b相加，求和",
         "parameters": {
             "type": "object",

@@ -40,7 +40,7 @@ def extract_employee_info(employee_list_df,name: str,department: str,certificate
 functions=[
     {
         "name": "add_numbers",
-        "description": "将两个数字相加，求和",
+        "description": "将两个数字a和b相加，求和",
         "parameters": {
             "type": "object",
             "properties": {
@@ -243,35 +243,35 @@ for questions in prompt_list:
     response = eb_call(questions,round_no,functions,messages)
     st.write(response['result'])
 
-    assert response.is_function_response
-    function_call = response.function_call
-    name2function = {'get_current_temperature': get_current_temperature}
-    func = name2function[function_call['name']]
-    args = json.loads(function_call['arguments'])
-    res = func(location=args['location'], unit=args['unit'])
+    if response.get(function_call):
+        function_call = response.function_call
+        name2function = {'get_current_temperature': get_current_temperature}
+        func = name2function[function_call['name']]
+        args = json.loads(function_call['arguments'])
+        res = func(location=args['location'], unit=args['unit'])
 
-    st.write(employee_list_df)
-    
-    import json
-    name2function = {'get_current_temperature': get_current_temperature}
-    func = name2function[function_call['name']]
-    args = json.loads(function_call['arguments'])
-    res = func(location=args['location'], unit=args['unit'])
-    
-    messages.append(
-        {
-            'role': 'assistant',
-            'content': None,
-            'function_call': function_call,
-        }
-    )
-    messages.append(
-        {
-            'role': 'function',
-            'name': function_call['name'],
-            'content': json.dumps(res, ensure_ascii=False),
-        }
-    )
-    st.write(messages)
-    response = eb_call(questions,round_no,functions,messages)
-    print(response.result)
+        st.write(employee_list_df)
+        
+        import json
+        name2function = {'get_current_temperature': get_current_temperature}
+        func = name2function[function_call['name']]
+        args = json.loads(function_call['arguments'])
+        res = func(location=args['location'], unit=args['unit'])
+        
+        messages.append(
+            {
+                'role': 'assistant',
+                'content': None,
+                'function_call': function_call,
+            }
+        )
+        messages.append(
+            {
+                'role': 'function',
+                'name': function_call['name'],
+                'content': json.dumps(res, ensure_ascii=False),
+            }
+        )
+        st.write(messages)
+        response = eb_call(questions,round_no,functions,messages)
+        print(response.result)

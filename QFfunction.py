@@ -225,7 +225,7 @@ chat_comp = qianfan.ChatCompletion()
 
 
 prompt1 = "已知a=42069420,b=6969420,请对这两个数进行运算"
-prompt2 = "我叫Wenxin，你好"
+prompt2 = "东升街道附近20元的午餐有哪些推荐？"
 prompt3 = "请问23乘109是多少?"
 prompt4 = "新入职员工李红在HR部门工作，她有研究生文凭。她的工号是918604。"
 prompt5 = "张三的工号是114514，他本科毕业，在技术部工作。"

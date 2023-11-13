@@ -40,24 +40,65 @@ def extract_employee_info(employee_list_df,name: str,department: str,certificate
 functions=[
     {
         "name": "add_numbers",
-        "description": "This function adds two numbers.",
+        "description": "将两个数字相加，求和",
         "parameters": {
             "type": "object",
             "properties": {
                 "a": {
-                    "type": "integer",
-                    "description": ""
+                    "type": "int",
+                    "description": "一个整数"
                 },
                 "b": {
-                    "type": "integer",
-                    "description": ""
+                    "type": "int",
+                    "description": "另一个整数"
                 }
             },
-            "required": [
-                "a",
-                "b"
-            ]
-        }
+            "required": ["a","b"]
+        },
+        "responses": {
+            "type": "object",
+            "properties": {
+                "sum": {
+                    "type": "int",
+                    "description": "两个数字的和"
+                    },
+            },
+        },
+    },
+    {
+        "name": "delivery_inquiry",
+        "description": "查询商品",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "location": {
+                    "type": "string",
+                    "description": "地址信息，包括街道、门牌号、城市、省份等信息"
+                    },
+                "expect_price": {
+                    "type": "int",
+                    "description": "期望的价格"
+                    }
+                },
+            "required": ["location"]
+            },
+        "responses": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "商品id"
+                    },
+                "price": {
+                    "type": "int",
+                    "description": "商品价格"
+                    },
+                "food": {
+                    "type": "string",
+                    "description": "商品名称"
+                    },
+                },
+            },
     },
     {
         "name": "mutiply_numbers",
@@ -183,9 +224,9 @@ chat_comp = qianfan.ChatCompletion()
 
 
 
-prompt1 = "这两个数加起来是多少，42069420 和 6969420？"
+prompt1 = "已知a=42069420,b=6969420,这两个数的和是多少？"
 prompt2 = "我叫Wenxin，你好"
-prompt3 = "请问23乘109是多少"
+prompt3 = "请问23乘109是多少?"
 prompt4 = "新入职员工李红在HR部门工作，她有研究生文凭。她的工号是918604。"
 prompt5 = "张三的工号是114514，他本科毕业，在技术部工作。"
 prompt6 = "深圳市今天气温如何？"
@@ -202,35 +243,35 @@ for questions in prompt_list:
     response = eb_call(questions,round_no,functions,messages)
     st.write(response['result'])
 
-    if hasattr(response, 'function_call'):
-        function_call = response.function_call
-        name2function = {'get_current_temperature': get_current_temperature}
-        func = name2function[function_call['name']]
-        args = json.loads(function_call['arguments'])
-        res = func(location=args['location'], unit=args['unit'])
+    assert response.is_function_response
+    function_call = response.function_call
+    name2function = {'get_current_temperature': get_current_temperature}
+    func = name2function[function_call['name']]
+    args = json.loads(function_call['arguments'])
+    res = func(location=args['location'], unit=args['unit'])
 
-        st.write(employee_list_df)
-        
-        import json
-        name2function = {'get_current_temperature': get_current_temperature}
-        func = name2function[function_call['name']]
-        args = json.loads(function_call['arguments'])
-        res = func(location=args['location'], unit=args['unit'])
-        
-        messages.append(
-            {
-                'role': 'assistant',
-                'content': None,
-                'function_call': function_call,
-            }
-        )
-        messages.append(
-            {
-                'role': 'function',
-                'name': function_call['name'],
-                'content': json.dumps(res, ensure_ascii=False),
-            }
-        )
-        st.write(messages)
-        response = eb_call(questions,round_no,functions,messages)
-        print(response.result)
+    st.write(employee_list_df)
+    
+    import json
+    name2function = {'get_current_temperature': get_current_temperature}
+    func = name2function[function_call['name']]
+    args = json.loads(function_call['arguments'])
+    res = func(location=args['location'], unit=args['unit'])
+    
+    messages.append(
+        {
+            'role': 'assistant',
+            'content': None,
+            'function_call': function_call,
+        }
+    )
+    messages.append(
+        {
+            'role': 'function',
+            'name': function_call['name'],
+            'content': json.dumps(res, ensure_ascii=False),
+        }
+    )
+    st.write(messages)
+    response = eb_call(questions,round_no,functions,messages)
+    print(response.result)

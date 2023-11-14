@@ -227,7 +227,6 @@ prompt5 = "张三的工号是114514，他本科毕业，在技术部工作。"
 prompt6 = "深圳市今天气温如何？"
 prompt_list = [prompt1,prompt2,prompt3,prompt4,prompt5,prompt6]
 
-
 employee_list_df={}
 
 round_no = 1

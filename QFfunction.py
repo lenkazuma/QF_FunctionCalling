@@ -35,186 +35,181 @@ def extract_employee_info(employee_list_df,name: str,department: str,certificate
     return employee_list_df
 
 
-
-
-functions=[
-    {
-        "name": "process_a_and_b",
-        "description": "将两个数字a和b相加，求和",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "a": {
-                    "type": "int",
-                    "description": "一个整数"
-                },
-                "b": {
-                    "type": "int",
-                    "description": "另一个整数"
-                }
-            },
-            "required": ["a","b"]
-        },
-        "responses": {
-            "type": "object",
-            "properties": {
-                "sum": {
-                    "type": "int",
-                    "description": "两个数字的和"
-                    },
-            },
-        },
-    },
-    {
-        "name": "delivery_inquiry",
-        "description": "查询商品",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "location": {
-                    "type": "string",
-                    "description": "地址信息，包括街道、门牌号、城市、省份等信息"
-                    },
-                "expect_price": {
-                    "type": "int",
-                    "description": "期望的价格"
-                    }
-                },
-            "required": ["location"]
-            },
-        "responses": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string",
-                    "description": "商品id"
-                    },
-                "price": {
-                    "type": "int",
-                    "description": "商品价格"
-                    },
-                "food": {
-                    "type": "string",
-                    "description": "商品名称"
-                    },
-                },
-            },
-    },
-    {
-        "name": "mutiply_numbers",
-        "description": "This function multiplies two numbers.",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "a": {
-                    "type": "integer",
-                    "description": ""
-                },
-                "b": {
-                    "type": "integer",
-                    "description": ""
-                }
-            },
-            "required": [
-                "a",
-                "b"
-            ]
-        }
-    },
-    {
-        "name": "say_hello",
-        "description": "打招呼并自我介绍。",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "description": ""
-                }
-            },
-            "required": [
-                "name"
-            ]
-        }
-    },
-    {
-        'name': 'extract_employee_info',
-        'description': '将员工信息录入。',
-        'parameters': {
-            'type': 'object',
-            'properties': {
-                'name': {
-                    'type': 'string',
-                    'description': '姓名'
-                },
-                'department': {
-                    'type': 'string',
-                    'description': '部门'
-                },
-                'certificate': {
-                    'type': 'string',
-                    'description': '学历文聘'
-                },
-                'id': {
-                    'type': 'string',
-                    'description': '工号 '
-                }
-                
-            }
-        }
-    },
-    {
-        'name': 'get_current_temperature',
-        'description': "获取指定城市的气温",
-        'parameters': {
-            'type': 'object',
-            'properties': {
-                'location': {
-                    'type': 'string',
-                    'description': "城市名称",
-                },
-                'unit': {
-                    'type': 'string',
-                    'enum': [
-                        '摄氏度',
-                        '华氏度',
-                    ],
-                },
-            },
-            'required': [
-                'location',
-                'unit',
-            ],
-        },
-        'responses': {
-            'type': 'object',
-            'properties': {
-                'temperature': {
-                    'type': 'integer',
-                    'description': "城市气温",
-                },
-                'unit': {
-                    'type': 'string',
-                    'enum': [
-                        '摄氏度',
-                        '华氏度',
-                    ],
-                },
-            },
-        },
-    }
-]
-
-
 def eb_call(prompt,round_no,functions,messages):
     st.write(prompt)
     st.write('-' * 20,' Output ', '-'*20,"\n")
 
     response = chat_comp.do(
-            model="ERNIE-Bot", 
-            messages=messages,
-            temperature=0.000000001,
-            functions=functions
+        model="ERNIE-Bot", 
+        messages=messages,
+        temperature=0.000000001,
+        functions=[
+            {
+                "name": "process_a_and_b",
+                "description": "将两个数字a和b相加，求和",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "a": {
+                            "type": "int",
+                            "description": "一个整数"
+                        },
+                        "b": {
+                            "type": "int",
+                            "description": "另一个整数"
+                        }
+                    },
+                    "required": ["a","b"]
+                },
+                "responses": {
+                    "type": "object",
+                    "properties": {
+                        "sum": {
+                            "type": "int",
+                            "description": "两个数字的和"
+                            },
+                    },
+                },
+            },
+            {
+                "name": "delivery_inquiry",
+                "description": "查询商品",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "location": {
+                            "type": "string",
+                            "description": "地址信息，包括街道、门牌号、城市、省份等信息"
+                            },
+                        "expect_price": {
+                            "type": "int",
+                            "description": "期望的价格"
+                            }
+                        },
+                    "required": ["location"]
+                    },
+                "responses": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string",
+                            "description": "商品id"
+                            },
+                        "price": {
+                            "type": "int",
+                            "description": "商品价格"
+                            },
+                        "food": {
+                            "type": "string",
+                            "description": "商品名称"
+                            },
+                        },
+                    },
+            },
+            {
+                "name": "mutiply_numbers",
+                "description": "This function multiplies two numbers.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "a": {
+                            "type": "integer",
+                            "description": ""
+                        },
+                        "b": {
+                            "type": "integer",
+                            "description": ""
+                        }
+                    },
+                    "required": [
+                        "a",
+                        "b"
+                    ]
+                }
+            },
+            {
+                "name": "say_hello",
+                "description": "打招呼并自我介绍。",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "description": ""
+                        }
+                    },
+                    "required": [
+                        "name"
+                    ]
+                }
+            },
+            {
+                'name': 'extract_employee_info',
+                'description': '将员工信息录入。',
+                'parameters': {
+                    'type': 'object',
+                    'properties': {
+                        'name': {
+                            'type': 'string',
+                            'description': '姓名'
+                        },
+                        'department': {
+                            'type': 'string',
+                            'description': '部门'
+                        },
+                        'certificate': {
+                            'type': 'string',
+                            'description': '学历文聘'
+                        },
+                        'id': {
+                            'type': 'string',
+                            'description': '工号 '
+                        }
+                        
+                    }
+                }
+            },
+            {
+                'name': 'get_current_temperature',
+                'description': "获取指定城市的气温",
+                'parameters': {
+                    'type': 'object',
+                    'properties': {
+                        'location': {
+                            'type': 'string',
+                            'description': "城市名称",
+                        },
+                        'unit': {
+                            'type': 'string',
+                            'enum': [
+                                '摄氏度',
+                                '华氏度',
+                            ],
+                        },
+                    },
+                    'required': [
+                        'location',
+                        'unit',
+                    ],
+                },
+                'responses': {
+                    'type': 'object',
+                    'properties': {
+                        'temperature': {
+                            'type': 'integer',
+                            'description': "城市气温",
+                        },
+                        'unit': {
+                            'type': 'string',
+                            'enum': [
+                                '摄氏度',
+                                '华氏度',
+                            ],
+                        },
+                    },
+                },
+            }
+        ]
     )
     st.write(response)
     round_no+=1

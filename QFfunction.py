@@ -35,7 +35,7 @@ def extract_employee_info(employee_list_df,name: str,department: str,certificate
     return employee_list_df
 
 
-def eb_call(prompt,round_no,functions,messages):
+def eb_call(prompt,round_no,messages):
     st.write(prompt)
     st.write('-' * 20,' Output ', '-'*20,"\n")
 
@@ -234,7 +234,7 @@ round_no = 1
 for questions in prompt_list:
     #questions+="请调用函数回答。"
     messages = [{"role": "user", "content": questions}]
-    response = eb_call(questions,round_no,functions,messages)
+    response = eb_call(questions,round_no,messages)
     st.write(response['result'])
 
     if hasattr(response,'function_call'):

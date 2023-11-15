@@ -1,9 +1,6 @@
 import qianfan
 import streamlit as st
-import numpy as np
-np.random.seed(123)
 import json
-
 
 def get_current_temperature(location: str, unit: str) -> dict:
     return {'temperature': 25, 'unit': '摄氏度'}

@@ -168,7 +168,7 @@ def eb_call(prompt,round,messages):
             }
         ]
     )
-    st.write(response)
+    #st.write(response)
     return response
 
 chat_comp = qianfan.ChatCompletion()
@@ -189,7 +189,7 @@ for questions in prompt_list:
     response = eb_call(questions,round,messages)
     st.write(response['result'])
     st.write(type(response))
-    if hasattr(response,'function_call'):
+    if hasattr(response.body,'function_call'):
         function_call = response['function_call']
         available_functions  = {'delivery_inquiry': delivery_inquiry,'delivery_order':delivery_order,'get_current_temperature':get_current_temperature,'extract_employee_info':extract_employee_info}
         fuction_to_call  = available_functions [function_call['name']]

@@ -189,9 +189,10 @@ for questions in prompt_list:
     response = eb_call(questions,round,messages)
     st.write(response['result'])
     st.write(type(response))
-    if response['function_call']:
+    try:
+        response['function_call']
         st.write("exist")
-    else:
+    except:
         st.write("no function called")  
     if hasattr(response.body,'function_call'):
         function_call = response['function_call']

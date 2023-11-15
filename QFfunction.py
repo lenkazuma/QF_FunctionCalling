@@ -4,18 +4,6 @@ import numpy as np
 np.random.seed(123)
 import json
 
-   
-def add_numbers(a: int, b: int):
-    """
-    This function adds two numbers.
-    """
-    return a + b
-    
-def mutiply_numbers(a: int, b: int):
-    """
-    This function multiplies two numbers.
-    """
-    return a + b
 
 def get_current_temperature(location: str, unit: str) -> dict:
     return {'temperature': 25, 'unit': '摄氏度'}
@@ -24,12 +12,15 @@ def extract_employee_info(employee_list_df,name: str,department: str,certificate
     """
     This function extracts the information of an employee and sort it into correct format, and updates the employee_list_df dataframe.
     """
-    new_row = {'姓名': name, '工号': id, '部门': department, '学历': certificate} 
+    new_row = {name: str, department: str, certificate: str, id: str} 
     employee_list_df.append(new_row, ignore_index=True)
-    return employee_list_df
+    return employee_list_df,{'result': True}
 
 def delivery_inquiry(location: str, expect_price: int) -> dict:
     return {'id': 20, 'price': '50', 'food': '肯德基疯狂星期四'}
+
+def delivery_order(id: str, food: str) -> dict:
+    return {'result': True}
 
 
 def eb_call(prompt,round_no,messages):
@@ -77,31 +68,31 @@ def eb_call(prompt,round_no,messages):
                     },
             },
             {
-                "name": "process_a_and_b",
-                "description": "将两个数字a和b相加，求和",
+                "name": "delivery_order",
+                "description": "外卖下单",
                 "parameters": {
                     "type": "object",
                     "properties": {
-                        "a": {
-                            "type": "int",
-                            "description": "一个整数"
+                        "id": {
+                            "type": "string",
+                            "description": "商品id"
+                            },
+                        "food": {
+                            "type": "string",
+                            "description": "商品名称"
+                            },
                         },
-                        "b": {
-                            "type": "int",
-                            "description": "另一个整数"
-                        }
+                    "required": ["id"]
                     },
-                    "required": ["a","b"]
-                },
                 "responses": {
                     "type": "object",
                     "properties": {
-                        "sum": {
-                            "type": "int",
-                            "description": "两个数字的和"
+                        "result": {
+                            "type": "string",
+                            "description": "是否下单成功"
                             },
+                        }
                     },
-                },
             },
             {
                 'name': 'extract_employee_info',
@@ -127,7 +118,16 @@ def eb_call(prompt,round_no,messages):
                         }
                         
                     }
-                }
+                },
+                "responses": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                            "type": "string",
+                            "description": "是否录入员工信息成功"
+                            },
+                        }
+                    },
             },
             {
                 'name': 'get_current_temperature',

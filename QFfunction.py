@@ -175,14 +175,12 @@ def eb_call(prompt,round_no,messages):
 chat_comp = qianfan.ChatCompletion()
 
 
-
-prompt1 = "已知a=42069420,b=6969420,请对这两个数进行运算"
-prompt2 = "东升街道附近20元的午餐有哪些推荐？"
+prompt2 = "南京路街道附近20元的午餐有哪些推荐？"
 prompt3 = "请问23乘109是多少?"
 prompt4 = "新入职员工李红在HR部门工作，她有研究生文凭。她的工号是918604。"
 prompt5 = "张三的工号是114514，他本科毕业，在技术部工作。"
 prompt6 = "深圳市今天气温如何？"
-prompt_list = [prompt1,prompt2,prompt3,prompt4,prompt5,prompt6]
+prompt_list = [prompt2,prompt3,prompt4,prompt5,prompt6]
 
 employee_list_df={}
 

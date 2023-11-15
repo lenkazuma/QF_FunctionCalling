@@ -179,7 +179,7 @@ prompt3 = "肯德基疯狂星期四不错，就买这个20号的肯德基疯狂�
 prompt4 = "新入职员工李红在HR部门工作，她有研究生文凭。她的工号是918604。"
 prompt5 = "张三的工号是114514，他本科毕业，在技术部工作。"
 prompt6 = "深圳市今天气温如何？"
-prompt_list = [prompt2,prompt4,prompt5,prompt6]
+prompt_list = [prompt2,prompt3,prompt4,prompt5,prompt6]
 
 employee_list_df={}
 

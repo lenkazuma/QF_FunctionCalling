@@ -212,4 +212,4 @@ for questions in prompt_list:
         )
         st.write(messages)
         response = eb_call(questions,round,messages)
-        print(response.result)
+        st.write(response.result)

@@ -212,7 +212,7 @@ for questions in prompt_list:
                 'content': json.dumps(res, ensure_ascii=False),
             }
         )
-        st.write(messages)
+        #st.write(messages)
         response = eb_call(questions,round,messages)
         st.write(response['result'])
 

@@ -192,18 +192,10 @@ for questions in prompt_list:
 
     if hasattr(response,'function_call'):
         function_call = response.function_call
-        name2function = {'get_current_temperature': get_current_temperature}
-        func = name2function[function_call['name']]
+        available_functions  = {'delivery_inquiry': delivery_inquiry,'delivery_order':delivery_order}
+        fuction_to_call  = available_functions [function_call['name']]
         args = json.loads(function_call['arguments'])
-        res = func(location=args['location'], unit=args['unit'])
-
-        st.write(employee_list_df)
-        
-        import json
-        name2function = {'get_current_temperature': get_current_temperature}
-        func = name2function[function_call['name']]
-        args = json.loads(function_call['arguments'])
-        res = func(location=args['location'], unit=args['unit'])
+        res = fuction_to_call (*list(args.values()))
         
         messages.append(
             {

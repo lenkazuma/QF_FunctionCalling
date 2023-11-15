@@ -187,8 +187,8 @@ round_no = 1
 for questions in prompt_list:
     messages = [{"role": "user", "content": questions}]
     response = eb_call(questions,round,messages)
-    st.write(response['result'])
-    st.write(type(response))
+    #st.write(response['result'])
+    #st.write(type(response))
     try:
         response['function_call']
         st.write("Function Called")

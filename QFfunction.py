@@ -20,7 +20,7 @@ def delivery_order(id: str, food: str) -> dict:
     return {'result': True}
 
 
-def eb_call(prompt,round_no,messages):
+def eb_call(prompt,round,messages):
     st.write(prompt)
     st.write('-' * 20,' Output ', '-'*20,"\n")
 
@@ -169,7 +169,6 @@ def eb_call(prompt,round_no,messages):
         ]
     )
     st.write(response)
-    round_no+=1
     return response
 
 chat_comp = qianfan.ChatCompletion()
@@ -187,7 +186,7 @@ round_no = 1
 
 for questions in prompt_list:
     messages = [{"role": "user", "content": questions}]
-    response = eb_call(questions,round_no,messages)
+    response = eb_call(questions,round,messages)
     st.write(response['result'])
 
     if hasattr(response,'function_call'):
@@ -212,5 +211,5 @@ for questions in prompt_list:
             }
         )
         st.write(messages)
-        response = eb_call(messages,questions,round_no,messages)
+        response = eb_call(questions,round,messages)
         print(response.result)

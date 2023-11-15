@@ -8,13 +8,13 @@ import json
 def get_current_temperature(location: str, unit: str) -> dict:
     return {'temperature': 25, 'unit': '摄氏度'}
 
-def extract_employee_info(employee_list_df,name: str,department: str,certificate:str,id:int):
+def extract_employee_info(name: str,department: str,certificate:str,id:int)-> dict:
     """
     This function extracts the information of an employee and sort it into correct format, and updates the employee_list_df dataframe.
     """
-    new_row = {name: str, department: str, certificate: str, id: str} 
-    employee_list_df.append(new_row, ignore_index=True)
-    return employee_list_df,{'result': True}
+    #new_row = {name: str, department: str, certificate: str, id: str} 
+    #employee_list_df.append(new_row, ignore_index=True)
+    return {'result': True}
 
 def delivery_inquiry(location: str, expect_price: int) -> dict:
     return {'id': 20, 'price': '50', 'food': '肯德基疯狂星期四'}

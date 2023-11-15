@@ -191,10 +191,7 @@ for questions in prompt_list:
     st.write(type(response))
     try:
         response['function_call']
-        st.write("exist")
-    except:
-        st.write("no function called")  
-    if hasattr(response.body,'function_call'):
+        st.write("Function Called")
         function_call = response['function_call']
         available_functions  = {'delivery_inquiry': delivery_inquiry,'delivery_order':delivery_order,'get_current_temperature':get_current_temperature,'extract_employee_info':extract_employee_info}
         fuction_to_call  = available_functions [function_call['name']]
@@ -218,3 +215,6 @@ for questions in prompt_list:
         st.write(messages)
         response = eb_call(questions,round,messages)
         st.write(response['result'])
+
+    except:
+        st.write("No function called")  

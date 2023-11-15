@@ -10,12 +10,6 @@ def add_numbers(a: int, b: int):
     This function adds two numbers.
     """
     return a + b
-
-def say_hello(name: str):
-    """
-    This function greets the user.
-    """
-    return f"你好, {name}! 我是Ernie助手。"
     
 def mutiply_numbers(a: int, b: int):
     """
@@ -34,6 +28,9 @@ def extract_employee_info(employee_list_df,name: str,department: str,certificate
     employee_list_df.append(new_row, ignore_index=True)
     return employee_list_df
 
+def delivery_inquiry(location: str, expect_price: int) -> dict:
+    return {'id': 20, 'price': '50', 'food': '肯德基疯狂星期四'}
+
 
 def eb_call(prompt,round_no,messages):
     st.write(prompt)
@@ -44,33 +41,6 @@ def eb_call(prompt,round_no,messages):
         messages=messages,
         temperature=0.000000001,
         functions=[
-            {
-                "name": "process_a_and_b",
-                "description": "将两个数字a和b相加，求和",
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "a": {
-                            "type": "int",
-                            "description": "一个整数"
-                        },
-                        "b": {
-                            "type": "int",
-                            "description": "另一个整数"
-                        }
-                    },
-                    "required": ["a","b"]
-                },
-                "responses": {
-                    "type": "object",
-                    "properties": {
-                        "sum": {
-                            "type": "int",
-                            "description": "两个数字的和"
-                            },
-                    },
-                },
-            },
             {
                 "name": "delivery_inquiry",
                 "description": "查询商品",
@@ -107,41 +77,31 @@ def eb_call(prompt,round_no,messages):
                     },
             },
             {
-                "name": "mutiply_numbers",
-                "description": "This function multiplies two numbers.",
+                "name": "process_a_and_b",
+                "description": "将两个数字a和b相加，求和",
                 "parameters": {
                     "type": "object",
                     "properties": {
                         "a": {
-                            "type": "integer",
-                            "description": ""
+                            "type": "int",
+                            "description": "一个整数"
                         },
                         "b": {
-                            "type": "integer",
-                            "description": ""
+                            "type": "int",
+                            "description": "另一个整数"
                         }
                     },
-                    "required": [
-                        "a",
-                        "b"
-                    ]
-                }
-            },
-            {
-                "name": "say_hello",
-                "description": "打招呼并自我介绍。",
-                "parameters": {
+                    "required": ["a","b"]
+                },
+                "responses": {
                     "type": "object",
                     "properties": {
-                        "name": {
-                            "type": "string",
-                            "description": ""
-                        }
+                        "sum": {
+                            "type": "int",
+                            "description": "两个数字的和"
+                            },
                     },
-                    "required": [
-                        "name"
-                    ]
-                }
+                },
             },
             {
                 'name': 'extract_employee_info',

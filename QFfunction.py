@@ -188,9 +188,9 @@ for questions in prompt_list:
     messages = [{"role": "user", "content": questions}]
     response = eb_call(questions,round,messages)
     st.write(response['result'])
-
+    st.write(type(response))
     if hasattr(response,'function_call'):
-        function_call = response.function_call
+        function_call = response['function_call']
         available_functions  = {'delivery_inquiry': delivery_inquiry,'delivery_order':delivery_order,'get_current_temperature':get_current_temperature,'extract_employee_info':extract_employee_info}
         fuction_to_call  = available_functions [function_call['name']]
         args = json.loads(function_call['arguments'])
@@ -212,4 +212,4 @@ for questions in prompt_list:
         )
         st.write(messages)
         response = eb_call(questions,round,messages)
-        st.write(response.result)
+        st.write(response['result'])

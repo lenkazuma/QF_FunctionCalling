@@ -168,7 +168,7 @@ def eb_call(prompt,round_no,messages):
             }
         ]
     )
-    print(response)
+    st.write(response)
     round_no+=1
     return response
 
@@ -188,21 +188,22 @@ round_no = 1
 for questions in prompt_list:
     messages = [{"role": "user", "content": questions}]
     response = eb_call(questions,round_no,messages)
-    print(response['result'])
+    st.write(response['result'])
 
     if hasattr(response,'function_call'):
         function_call = response.function_call
-        name2function = {'delivery_inquiry': delivery_inquiry,'delivery_order':delivery_order}
+        name2function = {'get_current_temperature': get_current_temperature}
         func = name2function[function_call['name']]
         args = json.loads(function_call['arguments'])
-        res = func(location=args['location'], expect_price=args['expect_price'])
+        res = func(location=args['location'], unit=args['unit'])
 
+        st.write(employee_list_df)
         
         import json
-        name2function = {'delivery_inquiry': delivery_inquiry}
+        name2function = {'get_current_temperature': get_current_temperature}
         func = name2function[function_call['name']]
         args = json.loads(function_call['arguments'])
-        res = func(location=args['location'], expect_price=args['expect_price'])
+        res = func(location=args['location'], unit=args['unit'])
         
         messages.append(
             {
@@ -218,6 +219,6 @@ for questions in prompt_list:
                 'content': json.dumps(res, ensure_ascii=False),
             }
         )
-        print(messages)
-        response = eb_call(messages,questions,round_no)
+        st.write(messages)
+        response = eb_call(messages,questions,round_no,messages)
         print(response.result)

@@ -191,7 +191,7 @@ for questions in prompt_list:
 
     if hasattr(response,'function_call'):
         function_call = response.function_call
-        available_functions  = {'delivery_inquiry': delivery_inquiry,'delivery_order':delivery_order}
+        available_functions  = {'delivery_inquiry': delivery_inquiry,'delivery_order':delivery_order,'get_current_temperature':get_current_temperature,'extract_employee_info':extract_employee_info}
         fuction_to_call  = available_functions [function_call['name']]
         args = json.loads(function_call['arguments'])
         res = fuction_to_call (*list(args.values()))

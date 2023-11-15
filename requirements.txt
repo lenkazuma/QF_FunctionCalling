@@ -1,5 +1,2 @@
-langchain==0.0.292
-pypdf
+qianfan
 streamlit
-langchain-wenxin
-qianfan==0.0.3

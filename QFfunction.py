@@ -174,7 +174,7 @@ def eb_call(prompt,round_no,messages):
 
 chat_comp = qianfan.ChatCompletion()
 
-prompt2 = "南京路街道附近20元的午餐有哪些推荐？"
+prompt2 = "南京路街道附近50元的午餐有哪些推荐？"
 prompt3 = "肯德基疯狂星期四不错，就买这个20号的肯德基疯狂星期四了"
 prompt4 = "新入职员工李红在HR部门工作，她有研究生文凭。她的工号是918604。"
 prompt5 = "张三的工号是114514，他本科毕业，在技术部工作。"

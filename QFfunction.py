@@ -186,7 +186,6 @@ employee_list_df={}
 round_no = 1
 
 for questions in prompt_list:
-    #questions+="请调用函数回答。"
     messages = [{"role": "user", "content": questions}]
     response = eb_call(questions,round_no,messages)
     st.write(response['result'])

@@ -220,5 +220,5 @@ for questions in prompt_list:
             }
         )
         st.write(messages)
-        response = eb_call(questions,round_no,messages)
+        response = eb_call(messages,questions,round_no)
         print(response.result)

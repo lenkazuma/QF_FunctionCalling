@@ -197,7 +197,7 @@ for questions in prompt_list:
         fuction_to_call  = available_functions [function_call['name']]
         args = json.loads(function_call['arguments'])
         res = fuction_to_call (*list(args.values()))
-        
+        #testest
         messages.append(
             {
                 'role': 'assistant',

@@ -26,7 +26,7 @@ def eb_call(prompt,round,messages):
     response = chat_comp.do(
         model="ERNIE-Bot", 
         messages=messages,
-        temperature=0.000000001,
+        temperature=0.01,
         functions=[
             {
                 "name": "delivery_inquiry",

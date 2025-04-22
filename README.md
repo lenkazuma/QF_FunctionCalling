@@ -1,5 +1,5 @@
 
-# Python函数调用示例：Qianfan与Streamlit集成
+# Python Functioncall：Qianfan与Streamlit集成
 
 本项目演示了如何将Qianfan ChatCompletion API与多个Python函数进行集成，执行例如查询员工信息、外卖订购和天气数据等任务。该应用使用Streamlit提供一个简单的Web界面，并通过Qianfan API处理和响应用户查询。
 
